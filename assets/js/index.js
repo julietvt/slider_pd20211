@@ -12,7 +12,7 @@ class Slide {
 }
 
 class Slider {
-  constructor(slides, currentIndex) {
+  constructor(slides, currentIndex = 0) {
     this._slides = slides;
     this._currentIndex = currentIndex;
   }
@@ -66,25 +66,25 @@ const carousel = new Slider([
 
 const [prevButtonElem, nextButtonElem] = document.querySelectorAll('.btn');
 
-prevButtonElem.addEventListener('click', renderSlider());
-nextButtonElem.addEventListener('click', renderSlider());
+const working =
+  (direction = 'next') =>
+  (e) => {
+    carousel.currentIndex =
+      carousel[direction == 'next' ? 'nextIndex' : 'prevIndex'];
+    renderSlider(direction);
+  };
+
+prevButtonElem.addEventListener('click', working('prev'));
+nextButtonElem.addEventListener('click', working('next'));
+
+renderSlider();
 
 function renderSlider(direction) {
   const prevImage = document.querySelector('.prevImage');
   const currentImage = document.querySelector('.currentImage');
   const nextImage = document.querySelector('.nextImage');
-  const prevSlide = carousel.prevSlide;
   const currentSlide = carousel.currentSlide;
-  const nextSlide = carousel.nextSlide;
-  prevImage.setAttribute('src', prevSlide.src);
+  prevImage.setAttribute('src', carousel.prevSlide.src);
   currentImage.setAttribute('src', currentSlide.src);
-  nextImage.setAttribute('src', nextSlide.src);
+  nextImage.setAttribute('src', carousel.nextSlide.src);
 }
-
-function working(direction = 'next') {
-  carousel.currentIndex =
-    carousel[direction == 'next' ? 'nextIndex' : 'prevIndex'];
-  renderSlider(direction);
-}
-
-renderSlider();

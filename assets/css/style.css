@@ -55,7 +55,7 @@ body {
 .prevImage {
   position: relative;
   z-index: 2;
-  left: 20%;
+  left: 10%;
   opacity: 0.7;
 }
 .currentImage {
@@ -65,6 +65,6 @@ body {
 .nextImage {
   position: relative;
   z-index: 2;
-  left: -20%;
+  left: -10%;
   opacity: 0.7;
 }
